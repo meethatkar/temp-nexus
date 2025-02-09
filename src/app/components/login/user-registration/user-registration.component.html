@@ -1,0 +1,106 @@
+<div class="container mt-5">
+    <div class="card p-4 shadow-lg bg-light">
+        <h2 class="text-center text-primary">User Registration</h2>
+        <form>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="firstName" class="form-label">First Name:</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Enter first name" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="lastName" class="form-label">Last Name:</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">email:</label>
+                <input type="text" class="form-control" id="email" placeholder="Enter email id" pattern=" ^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="phoneNumber" class="form-label">Phone Number:</label>
+                <input type="text" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="userName" class="form-label">Username: </label>
+                <input type="text" class="form-control" id="userName" placeholder="Enter username" required>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label for="password" class="form-label">Password:</label>
+                    <div class="input-group">
+                        <input [type]="passwordVisible ? 'text':'password' " class="form-control" id="password"
+                            placeholder="Enter password" required>
+                        <span class="input-group-text" (click)="togglePassword()">
+                            <i class="fa" [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash' "></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="confirmPassword" class="form-label">Confirm Password:</label>
+                    <div class="input-group">
+                        <input [type]="passwordVisible ? 'text':'password' " class="form-control" id="confirmPassword"
+                            placeholder="Enter confirm password" required>
+                        <span class="input-group-text" (click)="togglePassword()">
+                            <i class="fa" [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash' "></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+                <div class="row">
+                    <!-- Password Field -->
+                    <!-- <div class="col-md-6">
+                    <label for="password">Password:</label>
+                    <div class="input-group">
+                        <input [type]="passwordVisible ? 'text' : 'password'" id="password" class="form-control" placeholder="Enter password">
+                        <span class="input-group-text" (click)="togglePassword('password')">
+                            <i class="fa" [ngClass]="passwordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </span>
+                    </div>
+                </div> -->
+
+                    <!-- Confirm Password Field -->
+                    <!-- <div class="col-md-6">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <div class="input-group">
+                        <input [type]="confirmPasswordVisible ? 'text' : 'password'" id="confirmPassword" class="form-control" placeholder="Enter confirm password">
+                        <span class="input-group-text" (click)="togglePassword('confirmPassword')">
+                            <i class="fa" [ngClass]="confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </span>
+                    </div>
+                </div> -->
+                </div>
+
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address:</label>
+                    <textarea class="form-control" id="address" rows="3" placeholder="Enter address"></textarea>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="state" class="form-label">State:</label>
+                        <select class="form-select" id="state" (change)="onStateChange($event)">
+                            <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="city" class="form-label">City:</label>
+                        <select class="form-select" id="city">
+                            <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary w-100 my-1" (click)="onRegister()">Register</button>
+                <button type="reset" class="btn btn-secondary w-100 my-1" (click)="onReset()">Reset</button>
+                <p class="mt-2">Already have an account?
+                    <a routerLink="/userLogin">Login</a>
+                </p>
+        </form>
+    </div>
+</div>

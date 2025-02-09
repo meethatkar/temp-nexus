@@ -1,0 +1,98 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light-blue shadow-sm">
+    <div class="container-fluid">
+        
+       <!-- Logo (Click to Open Menu) -->
+       <a class="navbar-brand"  (click)="toggleMenu()">
+        <img src="logo.ico" alt="Logo" class="logo img-fluid" style="width:auto; height:35px">
+    </a>
+
+        <!-- Responsive Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Content -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            
+             @if(userObj.isLogin){
+            <!-- Search Bar -->
+            <form class="d-flex me-3">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+            </form>
+            <!-- My Account -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/myAccount">My Account</a>
+                </li>
+            </ul>
+            <!-- My Account -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" (click)="logout()">Logout</a>
+                </li>
+            </ul>
+            }
+            @else{
+             <!-- My Account -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-dark cutom-btn text-white px-3" routerLink="/userLogin">Login</a>
+                </li>
+            </ul>
+            }
+
+        </div>
+    </div>
+</nav>
+
+<!-- SIDE MENU BAR FOR ADMIN -->
+@if(username=="admin" && password=="root@123"){
+    <div class="sidebar" [class.open]="isMenuOpen">
+        <ul>
+            <li><a routerLink="/dashboard">📊 Dashboard</a></li>
+            <li><a routerLink="/projects">📂 Projects</a></li>
+            <li><a routerLink="/tasks">✅ Tasks</a></li>
+            <li><a routerLink="/tasks">👥 User Management</a></li>  
+            <li><a routerLink="/tasks">🔄 Activity Log</a></li> 
+        </ul>
+    </div>
+    @if(isMenuOpen){
+    <button class="overlay" (click)="toggleMenu()">     <i class="fa fa-close"></i>
+    </button>
+    }
+}
+
+
+<!-- SIDE MENU BAR FOR MANAGER  -->
+@else if (username=="" && password=="") {
+        <div class="sidebar" [class.open]="isMenuOpen">
+            <ul>
+                <li><a routerLink="/dashboard">📊 Dashboard</a></li>
+                <li><a routerLink="/projects">📂 Projects</a></li>
+                <li><a routerLink="/tasks">✅ Tasks</a></li>
+                <li><a routerLink="/tasks">📊 Reports & Analytics</a></li>
+                <li><a routerLink="/tasks">🛠️ Manage Team </a></li>
+            </ul>
+        </div>
+        @if(isMenuOpen){
+        <button class="overlay" (click)="toggleMenu()">     <i class="fa fa-close"></i>
+        </button>
+        }
+     }
+
+
+<!-- SIDE MENU BAR FOR MEMBER -->
+ @else {
+    <div class="sidebar" [class.open]="isMenuOpen">
+        <ul>
+            <li><a routerLink="/dashboard">📊 Dashboard</a></li>
+            <li><a routerLink="/projects">📂 Projects</a></li>
+            <li><a routerLink="/tasks">✅ Tasks</a></li>
+        </ul>
+    </div>
+    @if(isMenuOpen){
+    <button class="overlay" (click)="toggleMenu()">     <i class="fa fa-close"></i>
+    </button>
+    }
+ }

@@ -1,0 +1,8 @@
+.container {
+    max-width: 600px;
+}
+
+.card {
+    border-radius: 15px;
+    background-color: #d6e4f0;
+}

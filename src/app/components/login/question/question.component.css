@@ -1,0 +1,12 @@
+.container {
+    max-width: 500px;
+}
+
+.card {
+    border-radius: 15px;
+    background-color: #d6e4f0;
+}
+
+button {
+    font-size: 18px;
+}

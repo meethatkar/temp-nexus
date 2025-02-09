@@ -1,0 +1,32 @@
+<div class="container mt-5">
+    <div class="card p-4 shadow-lg bg-light">
+        <h2 class="text-primary text-center">Create a Project</h2>
+        
+        <form>
+            <!-- Project Name -->
+            <div class="mb-3">
+                <label for="projectName" class="form-label fw-bold">Project Name:</label>
+                <input type="text" class="form-control" id="projectName" placeholder="Enter project name">
+            </div>
+
+            <!-- Language -->
+            <div class="mb-3">
+                <label for="language" class="form-label fw-bold">Programming Language:</label>
+                <input type="text" class="form-control" id="language" placeholder="Enter language">
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label for="description" class="form-label fw-bold">Project Description:</label>
+                <textarea class="form-control" id="description" rows="3" placeholder="Enter project description"></textarea>
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary px-4" (click)="onCreate()">Create</button>
+                <button type="reset" class="btn btn-secondary px-4" (click)="onReset()">Reset</button>
+            </div>
+        </form>
+    </div>
+</div>
