@@ -1,55 +1,141 @@
 <div class="container mt-5">
     <div class="card p-4 shadow-lg bg-light">
         <h2 class="text-center text-primary">User Registration</h2>
-        <form>
-            <div class="row">
-                <div class="col-md-6 mb-3">
+        <form #regiForm="ngForm" (ngSubmit)="onRegister(regiForm)">
+
+                <div class="mb-3">
                     <label for="firstName" class="form-label">First Name:</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="Enter first name" required>
+                    <input type="text" 
+                    class="form-control" 
+                    id="firstName" 
+                    placeholder="Enter first name" 
+                    required 
+                    name="fname"
+                    ngModel
+                    #Fname="ngModel">
                 </div>
-                <div class="col-md-6 mb-3">
+                @if(!Fname.valid && Fname.touched){
+                    <p class="error-message">
+                        first name is required 
+                    </p>
+                }
+
+                <div class="mb-3">
                     <label for="lastName" class="form-label">Last Name:</label>
-                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name" required>
+                    <input type="text" 
+                    class="form-control" 
+                    id="lastName" 
+                    placeholder="Enter last name" 
+                    required 
+                    name="lname"
+                    ngModel
+                    #lname="ngModel">
                 </div>
-            </div>
+                @if(!lname.valid && lname.touched){
+                    <p class="error-message">
+                        last name is required 
+                    </p>
+                }
 
             <div class="mb-3">
                 <label for="email" class="form-label">email:</label>
-                <input type="text" class="form-control" id="email" placeholder="Enter email id" pattern=" ^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required>
+                <input type="text" 
+                class="form-control" 
+                id="email" 
+                placeholder="Enter email id" 
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" 
+                required 
+                name="email"
+                ngModel
+                #email="ngModel">
             </div>
+            @if(!email.valid && email.touched){
+                <p class="error-message">
+                  enter proper email
+                </p>
+            }
 
             <div class="mb-3">
                 <label for="phoneNumber" class="form-label">Phone Number:</label>
-                <input type="text" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
+                <input type="text" 
+                class="form-control" 
+                id="phoneNumber" 
+                placeholder="Enter phone number" 
+                required 
+                name="phonenum"
+                pattern="^[6789]\d{9}$"
+                ngModel
+                #phonenum="ngModel">
             </div>
+            @if(!phonenum.valid && phonenum.touched){
+                <p class="error-message">
+                    enter valid phone number
+                </p>
+            }
 
             <div class="mb-3">
                 <label for="userName" class="form-label">Username: </label>
-                <input type="text" class="form-control" id="userName" placeholder="Enter username" required>
+                <input type="text" 
+                class="form-control" 
+                id="userName" 
+                placeholder="Enter username" 
+                required 
+                name="username"
+                ngModel
+                #username="ngModel">
             </div>
+            @if(!username.valid && username.touched){
+                <p class="error-message">
+                    username is required 
+                </p>
+            }
 
-            <div class="row">
-                <div class="mb-3 col-md-6">
+                <div class="mb-3">
                     <label for="password" class="form-label">Password:</label>
                     <div class="input-group">
-                        <input [type]="passwordVisible ? 'text':'password' " class="form-control" id="password"
-                            placeholder="Enter password" required>
+                        <input [type]="passwordVisible ? 'text':'password' " 
+                        class="form-control" 
+                        id="password"
+                        placeholder="Enter password" 
+                        required 
+                        name="password"
+                        minlength=8
+                        ngModel
+                        (keyup)="comparePassword(password.value,confirmPassword.value)"
+                        #password="ngModel">
                         <span class="input-group-text" (click)="togglePassword()">
                             <i class="fa" [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash' "></i>
                         </span>
                     </div>
                 </div>
-                <div class="mb-3 col-md-6">
+                @if(!password.valid && password.touched && !IsMatch){
+                    <p class="error-message">
+                        enter correct password
+                    </p>
+                }
+                <div class="mb-3">
                     <label for="confirmPassword" class="form-label">Confirm Password:</label>
                     <div class="input-group">
-                        <input [type]="passwordVisible ? 'text':'password' " class="form-control" id="confirmPassword"
-                            placeholder="Enter confirm password" required>
+                        <input [type]="passwordVisible ? 'text':'password' " 
+                        class="form-control" 
+                        id="confirmPassword"
+                        placeholder="Enter confirm password" 
+                        required 
+                        name="confirmpassword"
+                        minlength=8
+                        ngModel
+                        (keyup)="comparePassword(password.value,confirmPassword.value)"
+                        #confirmPassword="ngModel">
                         <span class="input-group-text" (click)="togglePassword()">
                             <i class="fa" [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash' "></i>
                         </span>
                     </div>
                 </div>
-            </div>
+                @if(!confirmPassword.valid && confirmPassword.touched && !IsMatch){
+                    <p class="error-message">
+                        enter correct confirm. 
+                    </p>
+                }            
 
 
                 <div class="row">
@@ -78,9 +164,21 @@
 
                 <div class="mb-3">
                     <label for="address" class="form-label">Address:</label>
-                    <textarea class="form-control" id="address" rows="3" placeholder="Enter address"></textarea>
+                    <textarea class="form-control" 
+                    id="address" 
+                    rows="3" 
+                    placeholder="Enter address" 
+                    name="address"
+                    required
+                    ngModel
+                    #address="ngModel"></textarea>
                 </div>
-
+                @if(!address.valid && address.touched){
+                    <p class="error-message">
+                        address is required 
+                    </p>
+                }
+<!-- 
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="state" class="form-label">State:</label>
@@ -94,11 +192,11 @@
                             <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
 
-                <button type="button" class="btn btn-primary w-100 my-1" (click)="onRegister()">Register</button>
+                <button type="submit" class="btn btn-primary w-100 my-1" [disabled]="regiForm.invalid">Register</button>
                 <button type="reset" class="btn btn-secondary w-100 my-1" (click)="onReset()">Reset</button>
-                <p class="mt-2">Already have an account?
+                <p class="error-message" class="mt-2">Already have an account?
                     <a routerLink="/userLogin">Login</a>
                 </p>
         </form>
