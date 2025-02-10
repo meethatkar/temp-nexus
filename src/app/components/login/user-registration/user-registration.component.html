@@ -12,9 +12,9 @@
                     required 
                     name="fname"
                     ngModel
-                    #Fname="ngModel">
+                    #fname="ngModel">
                 </div>
-                @if(!Fname.valid && Fname.touched){
+                @if(fname.invalid && fname.touched){
                     <p class="error-message">
                         first name is required 
                     </p>
@@ -31,7 +31,7 @@
                     ngModel
                     #lname="ngModel">
                 </div>
-                @if(!lname.valid && lname.touched){
+                @if(lname.invalid && lname.touched){
                     <p class="error-message">
                         last name is required 
                     </p>
@@ -49,7 +49,7 @@
                 ngModel
                 #email="ngModel">
             </div>
-            @if(!email.valid && email.touched){
+            @if(email.invalid && email.touched){
                 <p class="error-message">
                   enter proper email
                 </p>
@@ -62,14 +62,14 @@
                 id="phoneNumber" 
                 placeholder="Enter phone number" 
                 required 
-                name="phonenum"
+                name="phoneNumber"
                 pattern="^[6789]\d{9}$"
                 ngModel
-                #phonenum="ngModel">
+                #phoneNumber="ngModel">
             </div>
-            @if(!phonenum.valid && phonenum.touched){
+            @if(phoneNumber.invalid && phoneNumber.touched){
                 <p class="error-message">
-                    enter valid phone number
+                    enter invalid phone number
                 </p>
             }
 
@@ -84,7 +84,7 @@
                 ngModel
                 #username="ngModel">
             </div>
-            @if(!username.valid && username.touched){
+            @if(username.invalid && username.touched){
                 <p class="error-message">
                     username is required 
                 </p>
@@ -99,7 +99,7 @@
                         placeholder="Enter password" 
                         required 
                         name="password"
-                        minlength=8
+                        minlength="8"
                         ngModel
                         (keyup)="comparePassword(password.value,confirmPassword.value)"
                         #password="ngModel">
@@ -108,7 +108,7 @@
                         </span>
                     </div>
                 </div>
-                @if(!password.valid && password.touched && !IsMatch){
+                @if(password.invalid && password.touched || !IsMatch){
                     <p class="error-message">
                         enter correct password
                     </p>
@@ -122,7 +122,7 @@
                         placeholder="Enter confirm password" 
                         required 
                         name="confirmpassword"
-                        minlength=8
+                        minlength="8"
                         ngModel
                         (keyup)="comparePassword(password.value,confirmPassword.value)"
                         #confirmPassword="ngModel">
@@ -131,36 +131,12 @@
                         </span>
                     </div>
                 </div>
-                @if(!confirmPassword.valid && confirmPassword.touched && !IsMatch){
+                @if(confirmPassword.invalid && confirmPassword.touched || !IsMatch){
                     <p class="error-message">
-                        enter correct confirm. 
+                        enter correct confirm password. 
                     </p>
                 }            
 
-
-                <div class="row">
-                    <!-- Password Field -->
-                    <!-- <div class="col-md-6">
-                    <label for="password">Password:</label>
-                    <div class="input-group">
-                        <input [type]="passwordVisible ? 'text' : 'password'" id="password" class="form-control" placeholder="Enter password">
-                        <span class="input-group-text" (click)="togglePassword('password')">
-                            <i class="fa" [ngClass]="passwordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
-                        </span>
-                    </div>
-                </div> -->
-
-                    <!-- Confirm Password Field -->
-                    <!-- <div class="col-md-6">
-                    <label for="confirmPassword">Confirm Password:</label>
-                    <div class="input-group">
-                        <input [type]="confirmPasswordVisible ? 'text' : 'password'" id="confirmPassword" class="form-control" placeholder="Enter confirm password">
-                        <span class="input-group-text" (click)="togglePassword('confirmPassword')">
-                            <i class="fa" [ngClass]="confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
-                        </span>
-                    </div>
-                </div> -->
-                </div>
 
                 <div class="mb-3">
                     <label for="address" class="form-label">Address:</label>
@@ -173,29 +149,14 @@
                     ngModel
                     #address="ngModel"></textarea>
                 </div>
-                @if(!address.valid && address.touched){
+                @if(address.invalid && address.touched){
                     <p class="error-message">
                         address is required 
                     </p>
                 }
-<!-- 
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="state" class="form-label">State:</label>
-                        <select class="form-select" id="state" (change)="onStateChange($event)">
-                            <option *ngFor="let state of states" [value]="state">{{ state }}</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="city" class="form-label">City:</label>
-                        <select class="form-select" id="city">
-                            <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
-                        </select>
-                    </div>
-                </div> -->
 
                 <button type="submit" class="btn btn-primary w-100 my-1" [disabled]="regiForm.invalid">Register</button>
-                <button type="reset" class="btn btn-secondary w-100 my-1" (click)="onReset()">Reset</button>
+                <button type="reset" class="btn btn-secondary w-100 my-1">Reset</button>
                 <p class="error-message" class="mt-2">Already have an account?
                     <a routerLink="/userLogin">Login</a>
                 </p>

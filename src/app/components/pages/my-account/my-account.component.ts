@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { user } from '../../../model/user.model';
 
 @Component({
   selector: 'app-my-account',
@@ -8,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './my-account.component.html',
   styleUrl: './my-account.component.css'
 })
-export class MyAccountComponent {
+export class MyAccountComponent implements OnInit{
 
   // IsEdit:boolean=false;
   IsEdit={
@@ -16,27 +17,18 @@ export class MyAccountComponent {
     'professional':false,
     'account':false
   }
-  userProfile = {
-    firstName: "John",
-    lastName: "Doe",
-    address: "123 Street, Mumbai",
-    phone: "+91 98765 43210",
-    email: "john.doe@example.com",
-    gender: "Male",
-    dob: "1995-03-15"
-  };
+  userObj:user=new user();
+  
+  userData: any;
+  passwordVisible:boolean=false;
 
-  professionalDetails = {
-    skills: "Java, Angular, C#",
-    experience: "5 Years",
-    id: "12345",
-    role: "Manager"
-  };
-
-  accountDetails = {
-    username: "john_doe",
-    password: "password123"
-  };
+  ngOnInit() {
+    let storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      this.userData = JSON.parse(storedUser); // Parse the JSON string into an object
+    }
+  }
+  
 
   workDetails = [
     { id: 101, task: "Project A - Task 1" },
@@ -47,12 +39,31 @@ export class MyAccountComponent {
 
   toggleEditP(on:boolean) {
     this.IsEdit.profile = on;
+    if (!this.IsEdit.profile) {
+      // When saving (status = false), update local storage
+      localStorage.setItem('user', JSON.stringify(this.userData));
+      alert("Profile updated successfully!");
+    }
   }
-  toggleEditPro(on:boolean) {
-    this.IsEdit.professional = on;
-  }
+  // toggleEditPro(on:boolean) {
+  //   this.IsEdit.professional = on;
+  //   if (this.IsEdit.professional) {
+  //     // When saving (status = false), update local storage
+  //     localStorage.setItem('user', JSON.stringify(this.userData));
+  //     alert("Profile updated successfully!");
+  //   }
+  // }d
   toggleEditA(on:boolean) {
     this.IsEdit.account = on;
+    if (!this.IsEdit.account) {
+      // When saving (status = false), update local storage
+      localStorage.setItem('user', JSON.stringify(this.userData));
+      alert("Profile updated successfully!");
+    }
+  }
+
+  togglePassword(){
+    this.passwordVisible=!this.passwordVisible;
   }
 }
 

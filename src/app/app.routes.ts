@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { UserRegistrationComponent } from './components/login/user-registration/user-registration.component';
 import { ErrorComponent } from './components/error/error.component';
 import { HomeDefaultComponent } from './components/pages/home-default/home-default.component';
+import { authGuard } from './gaurd/auth.guard';
 
 export const routes: Routes = [
     {
@@ -22,16 +23,19 @@ export const routes: Routes = [
     {
         path:'question',
         loadComponent:()=>import('./components/login/question/question.component').then(m=>m.QuestionComponent),
+        canActivate: [authGuard],       //cannot access without login
         title:'question'
     },
     {
         path:'createProject',
         loadComponent:()=>import('./components/login/create-project/create-project.component').then(m=>m.CreateProjectComponent),
+        canActivate: [authGuard],       //cannot access without login
         title:'create project'
     },
     {
         path:'joinProject',
         loadComponent:()=>import('./components/login/join-project/join-project.component').then(m=>m.JoinProjectComponent),
+        canActivate: [authGuard],       //cannot access without login
         title:'join project'
     },
     {
@@ -44,6 +48,12 @@ export const routes: Routes = [
         component:HomeDefaultComponent,
         title:'home'
     },
+    // {
+    //     path:'dashboard',
+    //     loadComponent:()=>import('./components/'),
+    //     canActivate: [AuthGaurd],
+    //     title:'dashboard'
+    // },
     {
         path:'**',
         loadComponent:()=>import('./components/error/error.component').then(m=>m.ErrorComponent),

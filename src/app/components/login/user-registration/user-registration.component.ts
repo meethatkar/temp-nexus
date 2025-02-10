@@ -14,7 +14,9 @@ export class UserRegistrationComponent {
   states: string[] = ['Maharashtra', 'Karnataka', 'Gujarat'];
   cities: string[] = ['Ahmedabad', 'Surat', 'Vadodara','Bangalore', 'Mysore', 'Mangalore','Mumbai', 'Pune', 'Nagpur'];
   userObj:user=new  user();
-  IsMatch:boolean=false;
+  IsMatch:boolean=false;  
+  passwordVisible: boolean = false;
+
   // router=inject(Router);
   constructor(private router:Router){}
 
@@ -41,9 +43,17 @@ export class UserRegistrationComponent {
   onRegister(regiData:NgForm){
     // all register logic here 
     try{
-      this.userObj.isLogin=true;
-      console.log("register works");
-      console.log(regiData.value);
+      // this.userObj.isLogin=true;
+      this.userObj.firstName=regiData.value.fname;
+      this.userObj.lastName=regiData.value.lname;
+      this.userObj.email=regiData.value.email;
+      this.userObj.phoneNumber=regiData.value.phoneNumber;
+      this.userObj.address=regiData.value.address;
+      this.userObj.password=regiData.value.password;
+      this.userObj.userName=regiData.value.username;
+      localStorage.setItem('user',JSON.stringify(this.userObj)); //stored user class's object filled with lastet data
+      localStorage.setItem('isLoggedIn','true');
+      alert("Registration Successful");
       this.router.navigate(['/question']);
     }
     catch(r){
@@ -51,11 +61,7 @@ export class UserRegistrationComponent {
     }
   }
 
-  onReset(){
-    // reset logic here please
-  }
 
-  passwordVisible: boolean = false;
 
   togglePassword(): void {
     this.passwordVisible=!this.passwordVisible;
