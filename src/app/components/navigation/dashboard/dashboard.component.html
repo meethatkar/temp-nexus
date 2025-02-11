@@ -1,0 +1,206 @@
+@if(role=="member"){
+<!-- DASHBOARD FOR MEMBER -->
+<div class="container mt-4">
+    <!-- Work Progress Section -->
+    <div class="card section-card">
+        <div class="card-body">
+          <h4 class="section-title">Work Progress</h4>
+          
+          <div class="mb-2">
+            <p class="fw-bold text-success mb-1">Completed</p>
+            <div class="progress">
+              <div class="progress-bar bg-success" style="width: 60%">60%</div>
+            </div>
+          </div>
+      
+          <div class="mb-2">
+            <p class="fw-bold text-warning mb-1">Pending</p>
+            <div class="progress">
+              <div class="progress-bar bg-warning" style="width: 30%">30%</div>
+            </div>
+          </div>
+      
+          <div>
+            <p class="fw-bold text-danger mb-1">Rejected</p>
+            <div class="progress">
+              <div class="progress-bar bg-danger" style="width: 10%">10%</div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    <!-- Projects Section -->
+    <div class="card section-card">
+      <div class="card-body">
+        <h4 class="section-title">Projects</h4>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Project Name</th>
+              <th>Manager</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let project of projects">
+              <td>{{ project.id }}</td>
+              <td>{{ project.name }}</td>
+              <td>{{ project.manager }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <!-- Tasks Section -->
+    <div class="card section-card">
+      <div class="card-body">
+        <h4 class="section-title">Assigned Tasks</h4>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Task ID</th>
+              <th>Task Name</th>
+              <th>Manager</th>
+              <th>Due Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let task of tasks">
+              <td>{{ task.id }}</td>
+              <td>{{ task.name }}</td>
+              <td>{{ task.manager }}</td>
+              <td>{{ task.dueDate }}</td>
+              <td>
+                <span [ngClass]="{
+                  'text-success': task.status === 'Accepted', 
+                  'text-danger': task.status === 'Rejected', 
+                  'text-warning': task.status === 'Pending'
+                }">
+                  {{ task.status }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <!-- Deadlines Section -->
+    <div class="card section-card">
+      <div class="card-body">
+        <h4 class="section-title">Deadline Tasks</h4>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Due</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let deadline of deadlineTasks">
+              <td>{{ deadline.name }}</td>
+              <td>{{ deadline.dueDate }}</td>
+              <td class="text-danger">{{ deadline.status }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <!-- Announcements Section -->
+    <div class="card section-card">
+      <div class="card-body">
+        <h4 class="section-title">Announcements</h4>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let announcement of announcements">
+            {{ announcement.message }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+}
+  
+
+
+<!-- //DASHBOARD FOR MANAGER  -->
+@else if(role=="manager"){
+    <div class="container mt-4">
+  
+        <!-- Project Section -->
+        <div class="card p-2 mb-2 shadow-sm" style=" font-size: 14px;">
+            <div class="d-flex justify-content-between align-items-center">
+              <!-- Left Section: Project Overview -->
+              <div>
+                <h5 class="text-primary fs-1">Project Overview</h5>
+                <p class="fs-3">Total Projects: <strong>{{ totalProjects }}</strong></p>
+                <ul class="list-unstyled fs-4">
+                  <li><span class="text-success">Live Projects:</span> {{ liveProject }}</li>
+                  <li><span class="text-info">Completed Projects:</span> {{ completedProject }}</li>
+                  <li><span class="text-danger">Cancelled Projects:</span> {{ droppedProject }}</li>
+                </ul>
+              </div>
+          
+              <!-- Right Section: Pie Chart -->
+              <div>
+                <canvas id="projectPieChart"></canvas>
+              </div>
+            </div>
+          </div>
+          
+          
+      
+        <!-- Member Section -->
+        <div class="card p-3 mb-4 shadow-sm">
+          <h4 class="text-primary">Members Overview</h4>
+          <table class="table table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th>Member</th>
+                <th>Total Tasks</th>
+                <th>Total Projects</th>
+                <th>Completion %</th>
+              </tr>
+            </thead>
+            <tbody>
+                @for(member of members; track member.id){
+              <tr>
+                <td>{{ member.name }}</td>
+                <td>{{ member.totalTasks }}</td>
+                <td>{{ member.totalProjects }}</td>
+                <td>{{ (member.completedTasks / member.totalTasks * 100) | number: '1.0-2' }}%</td>
+              </tr>
+            }
+            </tbody>
+          </table>
+        </div>
+      
+        <!-- Deadline Section -->
+        <div class="card p-3 mb-4 shadow-sm">
+          <h4 class="text-primary">Deadlines</h4>
+          <table class="table table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>Project</th>
+                <th>Deadline</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+                @for(project of deadlineProjects; track project.id){
+              <tr>
+                <td>{{ project.name }}</td>
+                <td>{{ project.deadline }}</td>
+                <td><span class="badge bg-danger">{{ project.status }}</span></td>
+              </tr>
+            }
+            </tbody>
+          </table>
+        </div>
+      
+      </div>
+      
+}

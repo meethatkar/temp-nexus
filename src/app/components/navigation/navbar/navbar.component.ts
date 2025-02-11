@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { user } from '../../../model/user.model';
 import { AuthService } from '../../../services/auth.service';
@@ -9,14 +9,17 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent implements AfterViewInit{
   isMenuOpen = false;
   username="";
   password="";
   userObj:user = new user();
   authService=inject(AuthService);
-  role=localStorage.getItem('role');
+  role:any;
 
+  ngAfterViewInit(): void {
+    this.role=localStorage.getItem('role');
+  }
   //METHODS
   constructor(){
     

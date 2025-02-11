@@ -8,5 +8,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './question.component.css'
 })
 export class QuestionComponent {
-
+  assignNoRole(){
+    localStorage.setItem("role","Not Assigned");
+  }
 }

@@ -48,12 +48,12 @@ export const routes: Routes = [
         component:HomeDefaultComponent,
         title:'home'
     },
-    // {
-    //     path:'dashboard',
-    //     loadComponent:()=>import('./components/'),
-    //     canActivate: [AuthGaurd],
-    //     title:'dashboard'
-    // },
+    {
+        path:'dashboard',
+        loadComponent:()=>import('./components/navigation/dashboard/dashboard.component').then(m=>m.DashboardComponent),
+        canActivate: [authGuard],
+        title:'dashboard'
+    },
     {
         path:'**',
         loadComponent:()=>import('./components/error/error.component').then(m=>m.ErrorComponent),
